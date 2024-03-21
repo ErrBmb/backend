@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import { z } from "zod"
+import { expressjwt } from "express-jwt"
+import * as dotenv from "dotenv"
 
 export function validate<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -17,3 +19,9 @@ export function validate<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
     }
   }
 }
+
+dotenv.config()
+export const isAuthenticated = expressjwt({
+  secret: Buffer.from(process.env.JWT_SECRET!!, "base64"),
+  algorithms: ["RS256"],
+})
