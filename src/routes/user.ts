@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express"
 import { validate } from "../utils/middlewares"
-import { UserType, userSchema } from "../model/user"
-import { LoginType, loginSchema } from "../model/auth"
+import { UserZodSchema, LoginZodSchema, LoginType, UserType } from "types"
 
 function signup(req: Request, res: Response) {
   const user = req.body as UserType
@@ -13,6 +12,6 @@ function signin(req: Request, res: Response) {
   return res.status(200).send(credentials)
 }
 
-export const user_router = Router()
-user_router.post("/user/signup", validate(userSchema), signup)
-user_router.get("/user/signin", validate(loginSchema), signin)
+export const userRouter = Router()
+userRouter.post("/user/signup", validate(UserZodSchema), signup)
+userRouter.get("/user/signin", validate(LoginZodSchema), signin)
