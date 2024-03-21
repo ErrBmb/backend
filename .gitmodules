@@ -1,0 +1,3 @@
+[submodule "libs/types"]
+	path = libs/types
+	url = git@github.com:ErrBmb/types.git
