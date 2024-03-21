@@ -22,6 +22,6 @@ export function validate<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
 
 dotenv.config()
 export const isAuthenticated = expressjwt({
-  secret: Buffer.from(process.env.JWT_SECRET!!, "base64"),
+  secret: process.env.JWT_PRIVATE_KEY!!,
   algorithms: ["RS256"],
 })
