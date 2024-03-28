@@ -1,14 +1,15 @@
-import { Request, Response, Router } from "express"
+import { Response, Router } from "express"
 import { isAuthenticated, validate } from "../utils/middlewares"
 import { User } from "../model/user"
 import {
   LoginRequestType,
   LoginRequestZodSchema,
   LoginResponseType,
+  TokenClaims,
   UserType,
   UserZodSchema,
 } from "../../libs/types/user"
-import {} from "express-jwt"
+import { Request } from "express-jwt"
 import { sign } from "jsonwebtoken"
 
 async function signup(req: Request, res: Response) {
@@ -43,9 +44,8 @@ async function signin(req: Request, res: Response) {
   } satisfies LoginResponseType)
 }
 
-async function personalInformation(req: Request, res: Response) {
-  const sub = (req as any).auth.sub
-  return res.status(200).send(await User.findById(sub))
+async function personalInformation(req: Request<TokenClaims>, res: Response) {
+  return res.status(200).send(await User.findById(req.auth?.sub))
 }
 
 export const userRouter = Router()
