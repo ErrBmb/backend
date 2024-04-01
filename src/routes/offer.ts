@@ -3,18 +3,24 @@ import { LocationType, LocationZodSchema } from "../../libs/types/location"
 import { Request } from "express-jwt"
 import { TokenClaims } from "../../libs/types/user"
 import { isAuthenticated, validate } from "../utils/middlewares"
-import { LocationModel } from "../model/location"
+import { Location } from "../model/location"
+import z from "zod"
 
 async function createOffer(req: Request<TokenClaims>, res: Response) {
-  const sub = (req as any).auth.sub
   const offer = req.body as LocationType
-  return res.status(200).send(await LocationModel.create(offer))
+  offer.owner = req.auth!!.sub
+  return res.status(200).send(await Location.create(offer))
 }
 
-export const userRouter = Router()
-userRouter.post(
-  "/offer/create",
-  validate(LocationZodSchema),
+async function listOffer(req: Request<TokenClaims>, res: Response) {
+  return res.status(200).send(await Location.find())
+}
+
+export const offerRouter = Router()
+offerRouter.post(
+  "/offers/create",
+  validate(LocationZodSchema.omit({ owner: true })),
   isAuthenticated,
   createOffer,
 )
+offerRouter.get("/offers", isAuthenticated, listOffer)

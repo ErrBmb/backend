@@ -1,14 +1,15 @@
 import { Schema, model } from "mongoose"
-import { LocationType } from "../../libs/types/location"
+import { BeedroomType, LocationType } from "../../libs/types/location"
 
 export const BedroomSchema = new Schema({
-  total_capacity: { type: Number, required: true },
-  bedrooms: { type: Uint8Array, required: true },
+  total_capacity: { type: Schema.Types.Number, required: true },
+  bedrooms: { type: [Schema.Types.Number], required: true },
 })
 
 export const LocationSchema = new Schema({
-  about: { type: String, required: true },
-  bedrooms: { type: Array<typeof BedroomSchema> },
+  about: { type: Schema.Types.String, required: true },
+  owner: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  bedrooms: { type: [BedroomSchema], default: [] },
 })
 
-export const LocationModel = model<LocationType>("user", LocationSchema)
+export const Location = model<LocationType>("location", LocationSchema)
