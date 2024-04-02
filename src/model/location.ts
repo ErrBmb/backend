@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose"
-import { BeedroomType, LocationType } from "../../libs/types/location"
+import { LocationType } from "../../libs/types/location"
 
 export const BedroomSchema = new Schema({
   total_capacity: { type: Schema.Types.Number, required: true },
