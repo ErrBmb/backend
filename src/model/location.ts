@@ -9,7 +9,9 @@ export const BedroomSchema = new Schema({
 export const LocationSchema = new Schema({
   about: { type: Schema.Types.String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: "user", required: true },
-  bedrooms: { type: [BedroomSchema], default: [] },
+  bedrooms: { type: [BedroomSchema], default: [], required: true },
+  city: { type: Schema.Types.String, required: true },
+  country: { type: Schema.Types.String, required: true },
 })
 
 export const Location = model<LocationType>("location", LocationSchema)

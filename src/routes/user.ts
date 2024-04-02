@@ -45,7 +45,14 @@ async function signin(req: Request, res: Response) {
 }
 
 async function personalInformation(req: Request<TokenClaims>, res: Response) {
-  return res.status(200).send(await User.findById(req.auth?.sub))
+  try {
+    const info = await User.findById(req.query.id ?? req.auth?.sub).lean()
+    if (!info) return res.status(404).send()
+    const { password, ...publicInfo } = info
+    return res.status(200).send(publicInfo)
+  } catch (e: any) {
+    return res.status(404).send()
+  }
 }
 
 export const userRouter = Router()
