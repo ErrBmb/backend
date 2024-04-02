@@ -5,6 +5,7 @@ export const ReviewSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "user", required: true },
   location: { type: Schema.Types.ObjectId, ref: "location", required: true },
   message: { type: Schema.Types.String, required: true, default: "" },
+  date: { type: Schema.Types.Date, required: true },
   rate: { type: Schema.Types.Number, required: true },
 })
 
