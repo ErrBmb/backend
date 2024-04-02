@@ -1,11 +1,13 @@
 import bodyParser from "body-parser"
+import dotenv from "dotenv"
 import express from "express"
 import { userRouter } from "./routes/user"
 import { connect } from "mongoose"
 import { offerRouter } from "./routes/offer"
 
+dotenv.config()
 export const app = express()
-connect("mongodb://127.0.0.1:27017/errbmb")
+connect(process.env.MONGO_URI!)
 
 // Configuration
 app.use(bodyParser.json())
