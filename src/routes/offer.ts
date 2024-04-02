@@ -29,4 +29,4 @@ offerRouter.post(
   isAuthenticated,
   createOffer,
 )
-offerRouter.get("/offers", isAuthenticated, listOffer)
+offerRouter.get("/offers", listOffer)
