@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, SchemaType, model } from "mongoose"
 import { LocationType } from "../../libs/types/location"
 
 export const BedroomSchema = new Schema({
@@ -12,6 +12,17 @@ export const LocationSchema = new Schema({
   bedrooms: { type: [BedroomSchema], default: [], required: true },
   city: { type: Schema.Types.String, required: true },
   country: { type: Schema.Types.String, required: true },
+  location: {
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ["Point"], // 'location.type' must be 'Point'
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
 })
 
 export const Location = model<LocationType>("location", LocationSchema)
