@@ -22,11 +22,11 @@ async function listOffer(req: Request<TokenClaims>, res: Response) {
   return res.status(200).send(await Location.find(filter).lean())
 }
 
-export const offerRouter = Router()
-offerRouter.post(
+export const locationRouter = Router()
+locationRouter.post(
   "/offers/create",
   validate(LocationZodSchema.omit({ owner: true })),
   isAuthenticated,
   createOffer,
 )
-offerRouter.get("/offers", listOffer)
+locationRouter.get("/offers", listOffer)
