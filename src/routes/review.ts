@@ -15,8 +15,13 @@ async function createReview(req: Request<TokenClaims>, res: Response) {
     await Location.findById(locationId)
     await User.findById(authorId)
 
-    await Review.create(req.body)
+    const review: ReviewType = req.body
+    review.author = authorId
+    review.location = locationId
+
+    return res.status(200).send(await Review.create(review))
   } catch (e: any) {
+    console.error(e)
     return res.status(400).send()
   }
 }
@@ -50,7 +55,7 @@ export const reviewRouter = Router()
 reviewRouter.post(
   "/offers/:id/create-review",
   isAuthenticated,
-  validate(ReviewZodSchema),
+  validate(ReviewZodSchema.omit({ author: true, location: true })),
   createReview,
 )
 reviewRouter.get("/offers/:id/reviews", isAuthenticated, listReviews)

@@ -4,6 +4,7 @@ import { Request } from "express-jwt"
 import { TokenClaims } from "../../libs/types/user"
 import { isAuthenticated, validate } from "../utils/middlewares"
 import { Location } from "../model/location"
+import { Review } from "../model/review"
 
 async function createOffer(req: Request<TokenClaims>, res: Response) {
   const offer = req.body as LocationType
@@ -19,7 +20,17 @@ async function listOffer(req: Request<TokenClaims>, res: Response) {
   if (req.query.country) {
     filter = { country: { $regex: req.query.country }, ...filter }
   }
-  return res.status(200).send(await Location.find(filter).lean())
+
+  // Les avis
+  const locations = await Location.find(filter).lean()
+  for (const location of locations) {
+    const rates = (await Review.find({ location: location._id })).map(
+      (r) => r.rate,
+    )
+    if (rates.length === 0) continue
+    location.rate = rates.reduce((a, b) => a + b, 0) / rates.length
+  }
+  return res.status(200).send(locations)
 }
 
 export const locationRouter = Router()
