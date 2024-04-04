@@ -24,9 +24,9 @@ async function listOffer(req: Request<TokenClaims>, res: Response) {
   // Les avis
   const locations = await Location.find(filter).lean()
   for (const location of locations) {
-    const rates = (await Review.find({ location: location._id })).map(
-      (r) => r.rate,
-    )
+    const rates = (
+      await Review.find({ location: location._id.toString() })
+    ).map((r) => r.rate)
     if (rates.length === 0) continue
     location.rate = rates.reduce((a, b) => a + b, 0) / rates.length
   }
