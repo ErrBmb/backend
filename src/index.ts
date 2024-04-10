@@ -8,10 +8,12 @@ import { reviewRouter } from "./routes/review"
 
 dotenv.config()
 export const app = express()
+var cors = require("cors")
 connect(process.env.MONGO_URI!)
 
 // Configuration
 app.use(bodyParser.json())
+app.use(cors())
 
 // Routes
 app.use(userRouter)
