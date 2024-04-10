@@ -57,5 +57,5 @@ async function personalInformation(req: Request<TokenClaims>, res: Response) {
 
 export const userRouter = Router()
 userRouter.post("/user/sign-up", validate(UserZodSchema), signup)
-userRouter.get("/user/sign-in", validate(LoginRequestZodSchema), signin)
+userRouter.post("/user/sign-in", validate(LoginRequestZodSchema), signin)
 userRouter.get("/user/personal-info", isAuthenticated, personalInformation)
