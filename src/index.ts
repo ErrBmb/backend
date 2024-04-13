@@ -5,6 +5,7 @@ import { userRouter } from "./routes/user"
 import { connect } from "mongoose"
 import { locationRouter } from "./routes/location"
 import { reviewRouter } from "./routes/review"
+import { researchRouter } from "./routes/research"
 
 dotenv.config()
 export const app = express()
@@ -19,5 +20,6 @@ app.use(cors())
 app.use(userRouter)
 app.use(locationRouter)
 app.use(reviewRouter)
+app.use(researchRouter)
 
 app.listen(3000)
