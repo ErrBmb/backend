@@ -11,18 +11,27 @@ async function research(req: Request, res: Response) {
   // Find reservations that overlap with the checkIn and checkOut interval
   const reservations = await Reservation.find({
     location: { $in: locations.map((location) => location._id.toString()) },
-    $or: [
+    $and: [
+      research.maxPrice ? { price: { $lte: research.maxPrice } } : {},
       {
-        $and: [
-          { start: { $lt: research.checkOut } },
-          { end: { $gt: research.checkIn } },
+        $or: [
+          {
+            $and: [
+              { start: { $lt: research.checkOut } },
+              { end: { $gt: research.checkIn } },
+            ],
+          },
+          {
+            $and: [
+              { start: { $gte: research.checkIn, $lte: research.checkOut } },
+            ],
+          },
+          {
+            $and: [
+              { end: { $gte: research.checkIn, $lte: research.checkOut } },
+            ],
+          },
         ],
-      },
-      {
-        $and: [{ start: { $gte: research.checkIn, $lte: research.checkOut } }],
-      },
-      {
-        $and: [{ end: { $gte: research.checkIn, $lte: research.checkOut } }],
       },
     ],
   })

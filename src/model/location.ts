@@ -23,6 +23,8 @@ export const LocationSchema = new Schema({
       required: true,
     },
   },
+  images: { type: [Schema.Types.String], default: [], required: true },
+  price: { type: Schema.Types.Number, required: true },
 })
 
 export const Location = model<LocationType>("location", LocationSchema)
