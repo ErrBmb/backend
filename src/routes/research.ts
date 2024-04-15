@@ -6,7 +6,9 @@ import { Location } from "../model/location"
 async function research(req: Request, res: Response) {
   const research = req.body as ResearchType
   // Find locations matching the city
-  const locations = await Location.find({ city: { $regex: research.place } })
+  const locations = await Location.find({
+    city: { $regex: research.place.toString() },
+  })
 
   // Find reservations that overlap with the checkIn and checkOut interval
   const reservations = await Reservation.find({
