@@ -42,7 +42,7 @@ async function location(req: Request<TokenClaims>, res: Response) {
   )
   if (rates.length > 0)
     location.rate = rates.reduce((a, b) => a + b, 0) / rates.length
-  return res.status(200).send()
+  return res.status(200).send(location)
 }
 
 export const locationRouter = Router()
