@@ -6,10 +6,18 @@ import { type LocationType } from "../../libs/types/location"
 
 async function research(req: Request, res: Response) {
   const research = req.body as ResearchType
+  if (!research.checkIn || !research.checkOut) {
+    return res.status(500).send()
+    // TODO:
+  }
+
+  const days =
+    (research.checkIn!.getTime() - research.checkOut!.getTime()) /
+    (1000 * 60 * 60 * 24)
   // Find locations matching the city
   const locations = await Location.find({
-    price: { $lte: research.maxPrice ?? Number.MAX_VALUE },
     city: { $regex: research.place?.toString() ?? "" },
+    price: { $lte: (research?.maxPrice ?? Number.MAX_VALUE) / days },
   })
 
   // Find reservations that overlap with the checkIn and checkOut interval
@@ -37,11 +45,6 @@ async function research(req: Request, res: Response) {
         reservation.location.toString() !== location._id.toString(),
     ),
   )
-
-  if (!research.checkIn || !research.checkOut) {
-    return res.status(500).send()
-    // TODO:
-  }
 
   return res.send(locationsWithoutReservations)
 }
