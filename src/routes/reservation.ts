@@ -12,7 +12,10 @@ async function book(req: Request<TokenClaims>, res: Response) {
   const reservationType = req.body as ReservationType
   reservationType.author = req.auth?.sub
   try {
-    return res.json(await Reservation.create(reservationType)).send()
+    return res
+      .status(200)
+      .json(await Reservation.create(reservationType))
+      .send()
   } catch (e: any) {
     return res.status(500).send()
   }
