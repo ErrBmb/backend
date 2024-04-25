@@ -80,7 +80,7 @@ async function isBookable(req: Request<TokenClaims>, res: Response) {
         },
       ],
     }).countDocuments()) > 0
-  return res.json(hasReservation).send()
+  return res.json(!hasReservation).send()
 }
 
 export const reservationRouter = Router()
