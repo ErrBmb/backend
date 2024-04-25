@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express"
 import { type OfferType, type ResearchType } from "../../libs/types/research"
 import { Reservation } from "../model/reservation"
 import { Location } from "../model/location"
+import { LocationType } from "../../libs/types/location"
 
 async function research(req: Request, res: Response) {
   const research = req.body as ResearchType
@@ -42,16 +43,7 @@ async function research(req: Request, res: Response) {
     // TODO:
   }
 
-  const days = new Date(
-    research.checkIn?.getTime() - research.checkOut?.getTime(),
-  ).getDay()
-  return res.send(
-    locationsWithoutReservations.map((location) => {
-      return {
-        location,
-        totalPrice: location.price * days,
-      } satisfies OfferType
-    }),
+  return res.send(locationsWithoutReservations),
   )
 }
 
