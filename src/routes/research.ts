@@ -20,7 +20,7 @@ async function research(req: Request, res: Response) {
     {
       city: { $regex: research.place?.toString() ?? "" },
     },
-    research.maxPrice ? { price: { $lte: research.maxPrice * days } } : {},
+    research.maxPrice ? { price: { $lte: research.maxPrice / days } } : {},
   ])
   const locations = await locationQuery
 
