@@ -48,7 +48,7 @@ async function isBookable(req: Request<TokenClaims>, res: Response) {
   return res.json().send(hasReservation)
 }
 
-const reservationRouter = Router()
+export const reservationRouter = Router()
 reservationRouter.post(
   "/book",
   isAuthenticated,
