@@ -12,6 +12,38 @@ async function book(req: Request<TokenClaims>, res: Response) {
   const reservationType = req.body as ReservationType
   reservationType.author = req.auth?.sub
   try {
+    const hasReservation =
+      (await Reservation.find({
+        $or: [
+          {
+            $and: [
+              { start: { $lt: reservationType.start } },
+              { end: { $gt: reservationType.end } },
+            ],
+          },
+          {
+            $and: [
+              {
+                start: {
+                  $gte: reservationType.start,
+                  $lte: reservationType.end,
+                },
+              },
+            ],
+          },
+          {
+            $and: [
+              {
+                end: { $gte: reservationType.start, $lte: reservationType.end },
+              },
+            ],
+          },
+        ],
+      }).countDocuments()) > 0
+    if (hasReservation) {
+      return res.status(409).send()
+    }
+
     return res
       .status(200)
       .json(await Reservation.create(reservationType))
