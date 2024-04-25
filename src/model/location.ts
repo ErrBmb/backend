@@ -3,7 +3,7 @@ import { LocationType } from "../../libs/types/location"
 
 export const BedroomSchema = new Schema({
   total_capacity: { type: Schema.Types.Number, required: true },
-  bedrooms: { type: [Schema.Types.Number], required: true },
+  beds: { type: [Schema.Types.Number], required: true },
 })
 
 export const LocationSchema = new Schema({

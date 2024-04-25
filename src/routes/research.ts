@@ -23,12 +23,13 @@ async function research(req: Request, res: Response) {
     research.maxPrice ? { price: { $lte: research.maxPrice / days } } : {},
   ])
   let locations = await locationQuery
-  locations = locations.filter(
-    (l) =>
-      (l.bedrooms ?? []).length > (research.bedrooms ?? 0) &&
-      (l.bedrooms ?? []).reduce((acc, b) => acc + (b.beds ?? []).length, 0) >
+  locations = locations
+    .filter((l) => (l.bedrooms ?? []).length >= (research.bedrooms ?? 0))
+    .filter(
+      (l) =>
+        (l.bedrooms ?? []).reduce((acc, b) => acc + (b.beds ?? []).length, 0) >=
         (research.beds ?? 0),
-  )
+    )
 
   // Find reservations that overlap with the checkIn and checkOut interval
   const reservations = await Reservation.find({
