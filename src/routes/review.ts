@@ -58,5 +58,5 @@ reviewRouter.post(
   validate(ReviewZodSchema.omit({ author: true, location: true })),
   createReview,
 )
-reviewRouter.get("/offers/:id/reviews", isAuthenticated, listReviews)
+reviewRouter.get("/offers/:id/reviews", listReviews)
 reviewRouter.post("/offers/edit-review/:id", isAuthenticated, editReview)
