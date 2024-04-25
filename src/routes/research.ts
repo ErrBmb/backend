@@ -17,7 +17,9 @@ async function research(req: Request, res: Response) {
   // Find locations matching the city
   const locations = await Location.find({
     city: { $regex: research.place?.toString() ?? "" },
-    price: { $lte: (research?.maxPrice ?? Number.MAX_VALUE) / days },
+    price: {
+      $lte: (research?.maxPrice ?? Number.MAX_VALUE) / (days == 0 ? 1 : 0),
+    },
   })
 
   // Find reservations that overlap with the checkIn and checkOut interval
