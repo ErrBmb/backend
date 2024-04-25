@@ -12,7 +12,8 @@ async function research(req: Request, res: Response) {
   }
 
   const days =
-    (research.checkIn!.getTime() - research.checkOut!.getTime()) /
+    (new Date(research.checkIn!).getTime() -
+      new Date(research.checkOut!).getTime()) /
     (1000 * 60 * 60 * 24)
   // Find locations matching the city
   const locations = await Location.find({
