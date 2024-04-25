@@ -22,6 +22,9 @@ async function research(req: Request, res: Response) {
     },
     research.maxPrice ? { price: { $lte: research.maxPrice / days } } : {},
   ])
+  if (research.maxPrice) {
+    console.log("jours: ", days, " prix par nuit:", research.maxPrice / days)
+  }
   const locations = await locationQuery
 
   // Find reservations that overlap with the checkIn and checkOut interval
