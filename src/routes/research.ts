@@ -43,8 +43,7 @@ async function research(req: Request, res: Response) {
     // TODO:
   }
 
-  return res.send(locationsWithoutReservations),
-  )
+  return res.send(locationsWithoutReservations)
 }
 
 export const researchRouter = Router()
