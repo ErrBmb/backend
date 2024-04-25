@@ -32,7 +32,8 @@ async function listReviews(req: Request<TokenClaims>, res: Response) {
     // Vérifie si la location et l'utilisateur existe.
     await Location.findById(locationId)
 
-    await Review.find({ location: locationId })
+    const reviews = await Review.find({ location: locationId })
+    return res.json(reviews).send()
   } catch (e: any) {
     return res.status(400).send()
   }
