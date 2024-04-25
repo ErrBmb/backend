@@ -50,8 +50,6 @@ async function research(req: Request, res: Response) {
       return {
         location,
         totalPrice: location.price * days,
-        checkIn: research.checkIn!,
-        checkOut: research.checkOut!,
       } satisfies OfferType
     }),
   )
