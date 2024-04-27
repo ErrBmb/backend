@@ -24,6 +24,7 @@ export const LocationSchema = new Schema({
     },
   },
   images: { type: [Schema.Types.String], default: [], required: true },
+  distance: { type: Schema.Types.Number, required: true },
   price: { type: Schema.Types.Number, required: true },
 })
 
