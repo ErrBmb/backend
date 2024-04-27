@@ -2,7 +2,6 @@ import { Request, Response, Router } from "express"
 import { type ResearchType } from "../../libs/types/research"
 import { Reservation } from "../model/reservation"
 import { Location } from "../model/location"
-import { type LocationType } from "../../libs/types/location"
 
 async function research(req: Request, res: Response) {
   const research = req.body as ResearchType

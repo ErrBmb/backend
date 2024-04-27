@@ -1,5 +1,5 @@
 import { Response, Router } from "express"
-import { isAuthenticated, validate } from "../utils/middlewares"
+import { isAuthenticated, validate } from "../util/middlewares"
 import { User } from "../model/user"
 import {
   LoginRequestType,

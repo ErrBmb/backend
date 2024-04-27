@@ -1,12 +1,12 @@
 import bodyParser from "body-parser"
 import dotenv from "dotenv"
 import express from "express"
-import { userRouter } from "./routes/user"
+import { userRouter } from "./route/user"
 import { connect } from "mongoose"
-import { locationRouter } from "./routes/location"
-import { reviewRouter } from "./routes/review"
-import { researchRouter } from "./routes/research"
-import { reservationRouter } from "./routes/reservation"
+import { locationRouter } from "./route/location"
+import { reviewRouter } from "./route/review"
+import { researchRouter } from "./route/research"
+import { reservationRouter } from "./route/reservation"
 
 dotenv.config()
 export const app = express()

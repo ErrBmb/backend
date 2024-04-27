@@ -6,7 +6,7 @@ import {
   ReservationZodSchema,
 } from "../../libs/types/reservation"
 import { Reservation } from "../model/reservation"
-import { isAuthenticated, validate } from "../utils/middlewares"
+import { isAuthenticated, validate } from "../util/middlewares"
 
 async function book(req: Request<TokenClaims>, res: Response) {
   const reservationType = req.body as ReservationType
@@ -92,7 +92,6 @@ reservationRouter.post(
 )
 reservationRouter.post(
   "/book/available",
-  isAuthenticated,
   validate(ReservationZodSchema),
   isBookable,
 )

@@ -1,5 +1,5 @@
 import { Response, Router } from "express"
-import { isAuthenticated, validate } from "../utils/middlewares"
+import { isAuthenticated, validate } from "../util/middlewares"
 import { Request } from "express-jwt"
 import { TokenClaims } from "../../libs/types/user"
 import { Location } from "../model/location"

@@ -2,7 +2,7 @@ import { Response, Router } from "express"
 import { LocationType, LocationZodSchema } from "../../libs/types/location"
 import { Request } from "express-jwt"
 import { TokenClaims } from "../../libs/types/user"
-import { isAuthenticated, validate } from "../utils/middlewares"
+import { isAuthenticated, validate } from "../util/middlewares"
 import { Location } from "../model/location"
 import { Review } from "../model/review"
 
