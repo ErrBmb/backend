@@ -1,0 +1,77 @@
+# Backend
+
+## Getting started
+
+The backend requires two environment variables to work properly:
+
+- `MONGO_URI` to connect to a Mongo database
+- `JWT_PRIVATE_KEY` to sign JWT tokens
+
+The following example gives us a correct `.env` file:
+
+```
+MONGO_URI="mongodb://127.0.0.1:27017/errbmb"
+JWT_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----"
+```
+
+## Pull external libraries
+
+You will need to pull the GIT submodule [Errbmb/types](https://github.com/ErrBmb/types) into the directory `/libs/types` with `git submodule update --init --recursive`.
+
+## Installing the libraries
+
+Run `npm i` to install all dependencies.
+
+## Running the server
+
+Run `npm run dev:start` to start the server using nodemon, `npm run prod:start` to run the server with node.
